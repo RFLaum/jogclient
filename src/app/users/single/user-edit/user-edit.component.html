@@ -1,0 +1,59 @@
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <div class="form-group">
+    <label for="username" class="control-label">Username</label>
+    <input type="text"
+      id="username"
+      name="username"
+      class="form-control"
+      [ngModel]="maybeGetValue('username')"
+      appMaybeRequired = "newUser">
+  </div>
+
+  <div class="form-group" *ngIf="showRoles()">
+    <label for="role" class="control-label">Role</label>
+    <select name="role"
+      id="role"
+      class="form-control"
+      [ngModel] = "user.roleString()">
+      <option *ngFor="let role of getRoles()" [ngValue]="role">
+        {{ role }}
+      </option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="password" class="control-label">Password</label>
+    <input type="password"
+      class="form-control"
+      id="password"
+      name="password"
+      value=""
+      ngModel
+      [appMaybeRequired] = "newUser"
+      #password="ngModel">
+  </div>
+  <div class="form-group">
+    <label for="password_confirmation" class="control-label">Confirm Password</label>
+    <input type="password"
+      class="form-control"
+      id="password_confirmation"
+      name="password_confirmation"
+      ngModel
+      [appMaybeRequired] = "newUser"
+      [checkAgainst]="password.value"
+      [otherName]="'password'">
+  </div>
+
+  <div class="text-danger">
+    <ul *ngFor="let error of formUtil.getParsedErrors(f)">
+      {{ error.name }}
+      <li *ngFor="let prob of error.errs">{{ prob }}</li>
+    </ul>
+  </div>
+
+  <button type="submit" class="btn btn-default" [disabled]="!f.valid">Submit</button>
+  <button type="button" class="btn btn-default" (click)="doneEditing.emit()">
+    Cancel</button>
+  <button *ngIf="!newUser" class="btn btn-default" type="button"
+    (click) = "onDelete()">Delete</button>
+</form>

@@ -1,0 +1,7 @@
+<app-pagination
+  [numPages]="jogsServ.numPages"
+  [(page)]="jogsServ.pageNum">
+</app-pagination>
+<ul>
+  <app-jog-wrapper *ngFor="let jog of jogsServ.jogs" [jog]="jog"></app-jog-wrapper>
+</ul>

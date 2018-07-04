@@ -1,0 +1,12 @@
+<nav>
+  <a class="link-app" *ngIf="page > 1" (click)="adjustPage(-1)">&larr; Previous</a>
+  Page
+  <input
+    *ngIf = "numPages > 1"
+    type = "number"
+    min = "1"
+    [max] = "numPages"
+    [(ngModel)] = "page" >
+  of <strong>{{ numPages }}</strong>
+  <a class="link-app" *ngIf="page < numPages" (click)="adjustPage(1)">Next &rarr;</a>
+</nav>
