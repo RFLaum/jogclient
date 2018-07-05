@@ -17,7 +17,10 @@ export class JogListService {
   set pageNum(newNum: number){
     if (newNum > this.numPages) newNum = this.numPages;
     if (newNum < 1) newNum = 1;
-    this._pageNum = newNum;
+    if (newNum != this._pageNum){
+      this._pageNum = newNum;
+      this.refresh();
+    }
   }
 
   deleteID(id: number){
@@ -37,7 +40,9 @@ export class JogListService {
     if (countSuccess == 2) this.needsUpdate = false;
   }
 
-  maybeRefresh(){ if (this.needsUpdate) this.refresh();}
+  maybeRefresh(){
+    if (this.needsUpdate) this.refresh();
+  }
 
   private getLoc(id: number): number{
     return this.jogs.findIndex(x => x.id == id);

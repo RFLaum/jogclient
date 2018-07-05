@@ -28,6 +28,15 @@ export class FormUtilitiesService {
     return answer;
   }
 
+  addChildErrors(f: NgForm, errs: ValidationErrors){
+    for (let field in errs){
+      let control: AbstractControl = f.controls[field];
+      let oldErrors = this.errTranslate(control.errors);
+      for (let message of errs[field])
+        oldErrors[message] = true;
+      control.setErrors(oldErrors);
+    }
+  }
 
   getParsedErrors(f: NgForm): ReadableError[] {
     let answer: ReadableError[] = [];
@@ -53,5 +62,9 @@ export class FormUtilitiesService {
     }
 
     return answer;
+  }
+
+  private errTranslate(input: ValidationErrors|null): ValidationErrors {
+    return input || {};
   }
 }

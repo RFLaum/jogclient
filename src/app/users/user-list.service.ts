@@ -12,10 +12,13 @@ export class UserListService {
   users: User[] = [];
   selected: User;
   get reader(): User {
-    return this.getUserWithID(this.cred.id);
+    return this.getUserWithID(this.cred.id) || new User(this.cred);
   }
 
-  constructor(private comm: CommService, private cred: CredentialsService) { }
+  constructor(private comm: CommService, private cred: CredentialsService) {
+    // cred.logChange.subscribe(val => {if (val) this.refreshList(cred.id)});
+    cred.logEvent.subscribe( () => this.refreshList(cred.id) );
+  }
 
   refreshList(chosenID: number){
     this.comm.get<RecUser[]>("users").subscribe(
@@ -39,11 +42,15 @@ export class UserListService {
     return this.selected.id;
   }
   set selectedID(id: number) {
-    if (id == this.selectedID) return;
+    if (this.selected && id == this.selectedID) return;
     const res = this.getUserWithID(id);
     if (res === undefined) return;
     this.selected = res;
     this.selChange.emit(res);
+  }
+
+  showMany(): boolean {
+    return this.cred.loggedIn && this.users.length > 1;
   }
 
   @Output() selChange = new EventEmitter<User>();

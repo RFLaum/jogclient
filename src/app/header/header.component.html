@@ -1,5 +1,5 @@
 <div class="row">
-  <ul class="nav navbar-nav">
+  <ul class="nav nav-tabs">
     <li [ngClass]="{active: showLogForm}">
       <a (click)="logClick()">{{ logText() }}</a>
     </li>
@@ -8,7 +8,7 @@
     </li>
     <ng-template #inLinks>
       <li routerLinkActive="active"><a routerLink="/user">User Overview</a></li>
-      <ng-template *ngIf="users.reader.canViewJogs(users.selected)">
+      <ng-template [ngIf]="checkCanView()">
         <li routerLinkActive="active"><a routerLink="/jogs">Jog Records</a></li>
         <li routerLinkActive="active"><a routerLink="/weeks">Weekly Data</a></li>
       </ng-template>
@@ -16,7 +16,7 @@
   </ul>
 </div>
 
-<app-user-edit *ngIf="showRegForm" [user]="null" (doneEditing)="showRegForm = false"></app-user-edit>
+<app-user-edit *ngIf="showRegForm" [user]="null" (doneEditing)="hideForms()"></app-user-edit>
 <form *ngIf="showLogForm" class="form-horizontal"
   #f="ngForm" (submit)="tryLogIn(f)">
   <div class="form-group">

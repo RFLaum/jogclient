@@ -21,6 +21,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { RootComponent } from './misc/root/root.component';
 import { UserWrapperComponent } from './users/single/user-wrapper/user-wrapper.component';
 import { WeeksDisplayComponent } from './weeks/weeks-display/weeks-display.component';
+import { DateFilterComponent } from './jogs/all/date-filter/date-filter.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { WeeksDisplayComponent } from './weeks/weeks-display/weeks-display.compo
     MatchValidateDirective,
     RootComponent,
     UserWrapperComponent,
-    WeeksDisplayComponent
+    WeeksDisplayComponent,
+    DateFilterComponent
   ],
   imports: [
     BrowserModule,

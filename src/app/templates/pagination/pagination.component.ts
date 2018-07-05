@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-pagination',
@@ -8,6 +8,13 @@ import { Component, OnInit, Input } from '@angular/core';
 export class PaginationComponent implements OnInit {
   @Input() numPages: number;
   @Input() page: number;
+  @Output() pageChange = new EventEmitter<number>();
+
+  private get pageWrap(): number { return this.page; }
+  private set pageWrap(newVal: number) {
+    this.page = newVal;
+    this.pageChange.emit(newVal);
+  }
 
   constructor() { }
 
@@ -16,5 +23,6 @@ export class PaginationComponent implements OnInit {
 
   adjustPage(increment: number){
     this.page += increment;
+    this.pageChange.emit(this.page);
   }
 }

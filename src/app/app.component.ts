@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-// import { UserListService } from './users/user-list.service';
+import { UserListService } from './users/user-list.service';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +10,6 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Jog Management';
 
-  constructor(){
+  constructor(private users: UserListService){
   }
 }

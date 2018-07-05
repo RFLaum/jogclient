@@ -33,7 +33,6 @@ export class HeaderComponent implements OnInit {
     this.showRegForm = !this.showRegForm;
   }
 
-
   logText(): string {
     return this.cred.loggedIn ? "Log Out" : "Log In";
   }
@@ -44,13 +43,20 @@ export class HeaderComponent implements OnInit {
 
   tryLogIn(f: NgForm){
     this.comm.post<RecUser>("login", f.value).subscribe(
-      succ => this.cred.logIn(succ, f.value.password),
-      err => console.log(err)
+      succ => {
+        this.cred.logIn(succ, f.value.password);
+        this.hideForms();
+      },
+      err => alert(err.status == 401 ? "Invalid username or password" : "Unknown Error")
     );
   }
 
-  test(f: NgForm): string {
-    console.log(f);
-    return "test";
+  hideForms() {
+    this.showRegForm = false;
+    this.showLogForm = false;
+  }
+
+  checkCanView(): boolean {
+    return this.users.reader.canViewJogs(this.users.selected);
   }
 }

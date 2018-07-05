@@ -45,8 +45,8 @@ export class CommService {
   makeUrl(val: Dest): string {
     const makeUrlInner = (x: any) => {
       if (x instanceof Array)
-        return x.reduce((acc, curr) => acc + "/" + makeUrlInner(curr));
-      // if ((x instanceof User) || (x instanceof CredentialsService))
+        return x.map(section => makeUrlInner(section))
+                .reduce((acc, curr) => acc + "/" + curr);
       if (x instanceof User)
         return "users/" + x.id;
       if (x instanceof RecJog ) return "jogs/" + x.id;

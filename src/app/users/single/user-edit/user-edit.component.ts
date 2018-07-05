@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { Observable } from 'rxjs';
@@ -18,6 +18,7 @@ import { FormUtilitiesService } from '../../../misc/form-utilities.service'
 export class UserEditComponent implements OnInit {
   @Input() user: User;
   @Output() doneEditing = new EventEmitter();
+  @ViewChild("f") form: NgForm;
 
   constructor(private userList: UserListService, private comm: CommService,
     private cred: CredentialsService, private formUtil: FormUtilitiesService) { }
@@ -45,13 +46,16 @@ export class UserEditComponent implements OnInit {
     return answer;
   }
 
-  onSubmit(form: NgForm){
-    let val = form.value;
+  onSubmit(){
+    let val = this.form.value;
     for (let prop in val)
       val[prop] = val[prop] || undefined;
     if (this.newUser){
       this.comm.post<RecUser>("users/", {user: val}).subscribe(
-        resp => this.cred.logIn(resp, val.password),
+        resp => {
+          this.cred.logIn(resp, val.password);
+          this.doneEditing.emit();
+        },
         err => this.errorReceived(err)
       );
     } else {
@@ -67,7 +71,7 @@ export class UserEditComponent implements OnInit {
   }
 
   errorReceived(error: any){
-    //TODO
+    this.formUtil.addChildErrors(this.form, error.error);
   }
 
   onDelete(){

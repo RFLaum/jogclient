@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { RoutingUtilitiesService } from '../../misc/routing-utilities.service'
+
 @Component({
   selector: 'app-weeks-display',
   templateUrl: './weeks-display.component.html',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WeeksDisplayComponent implements OnInit {
 
-  constructor() { }
+  constructor(private routUtil:RoutingUtilitiesService) {
+    routUtil.maybeGoHome();
+  }
 
   ngOnInit() {
   }

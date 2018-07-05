@@ -1,1 +1,7 @@
 <app-header></app-header>
+
+<app-dropdown *ngIf="users.showMany()"></app-dropdown>
+
+<div>
+  <router-outlet></router-outlet>
+</div>

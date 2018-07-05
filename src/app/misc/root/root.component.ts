@@ -14,6 +14,7 @@ export class RootComponent implements OnInit {
 
   ngOnInit() {
     if (this.cred.loggedIn) this.router.navigate(["/user"]);
+    this.cred.logEvent.subscribe(() => this.router.navigate(["/user"]));
   }
 
 }

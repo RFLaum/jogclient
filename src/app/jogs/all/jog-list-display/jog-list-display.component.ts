@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { JogListService } from '../jog-list.service';
 import { UserListService } from '../../../users/user-list.service';
+import { RoutingUtilitiesService } from '../../../misc/routing-utilities.service';
 @Component({
   selector: 'app-jog-list-display',
   templateUrl: './jog-list-display.component.html',
@@ -10,7 +11,10 @@ import { UserListService } from '../../../users/user-list.service';
 export class JogListDisplayComponent implements OnInit {
 
   constructor(private jogsServ: JogListService,
-    private userServ: UserListService) { }
+    private userServ: UserListService,
+    private routUtil: RoutingUtilitiesService) {
+      routUtil.maybeGoHome();
+    }
 
   ngOnInit() {
     this.jogsServ.maybeRefresh();

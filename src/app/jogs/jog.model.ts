@@ -1,6 +1,6 @@
 export class RecJog {
   readonly id: number;
-  time: string;
+  pretty_time: string;
   date: string;
   distance: number;
   speed: number;
