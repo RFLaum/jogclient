@@ -1,3 +1,5 @@
+//display a single jog
+
 import { Component, OnInit, Input } from '@angular/core';
 
 import { RecJog } from '../../jog.model';

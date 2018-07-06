@@ -1,1 +1,11 @@
-<app-show-user [user]="users.selected || cred.userObj()"></app-show-user>
+<app-show-user [user]="users.selected || cred.userObj()" *ngIf="!editMode">
+</app-show-user>
+<button type="button"
+  *ngIf="!editMode"
+  (click)="this.editMode = true"
+  [disabled]="!users.selected">Edit User</button>
+<app-user-edit
+  *ngIf="editMode"
+  [user]="users.selected"
+  (doneEditing)="editMode = false">
+</app-user-edit>

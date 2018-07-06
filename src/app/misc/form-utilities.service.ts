@@ -1,3 +1,5 @@
+//utilites useful for managing forms
+
 import { Injectable } from '@angular/core';
 import { NgForm, ValidationErrors, AbstractControl } from '@angular/forms';
 
@@ -11,10 +13,30 @@ export class FormUtilitiesService {
 
   constructor() { }
 
+  // parse a value into a valid string; null and undefined are rendered as
+  // empty string.
+  parseAsString(str: string): string {
+    return str || "";
+  }
+  // string equality test that treats null and undefined as empty strings
+  compareStrings(str1: string, str2: string): boolean {
+    return this.parseAsString(str1) == this.parseAsString(str2);
+  }
+
+  // remove blank values from form data that's going to be serialized to JSON
+  removeBlank(form: NgForm): any {
+    let val = form.value;
+    for (let prop in val)
+      val[prop] = val[prop] || undefined;
+    return val;
+  }
+
+  // get array all keys of a given object
   getKeys(obj: any): string[] {
     return obj === null ? null : Object.keys(obj);
   }
 
+  // get errors of all child controls
   getChildErrors(f: NgForm): ErrDetail[] {
     let answer: ErrDetail[] = [];
 
@@ -28,6 +50,7 @@ export class FormUtilitiesService {
     return answer;
   }
 
+  //set errors of child controls
   addChildErrors(f: NgForm, errs: ValidationErrors){
     for (let field in errs){
       let control: AbstractControl = f.controls[field];
@@ -38,6 +61,7 @@ export class FormUtilitiesService {
     }
   }
 
+  // get errors of child controls in a readable format
   getParsedErrors(f: NgForm): ReadableError[] {
     let answer: ReadableError[] = [];
     const rawErrors = this.getChildErrors(f);

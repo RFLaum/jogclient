@@ -11,7 +11,7 @@ export class CredentialsService {
   password: string;
   role: string;
   loggedIn: boolean = false;
-  logEvent = new EventEmitter();
+  logEvent = new EventEmitter<boolean>();
 
   logIn(user: RecUser, password: string){
     this.id = user.id;
@@ -19,10 +19,11 @@ export class CredentialsService {
     this.password = password;
     this.role = user.role;
     this.loggedIn = true;
-    this.logEvent.emit();
+    this.logEvent.emit(true);
   }
   logOut() {
     this.loggedIn = false;
+    this.logEvent.emit(false);
   }
 
   getAuth():string {

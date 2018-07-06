@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { CredentialsService } from '../../users/credentials.service';
+import { UserListService } from '../../users/user-list.service';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +10,12 @@ import { CredentialsService } from '../../users/credentials.service';
 })
 export class RootComponent implements OnInit {
 
-  constructor(private router: Router, private cred: CredentialsService) { }
+  constructor(users: UserListService, cred: CredentialsService) {
+    users.maybeRedirect();
+    cred.logEvent.subscribe( () => users.maybeRedirect());
+  }
 
   ngOnInit() {
-    if (this.cred.loggedIn) this.router.navigate(["/user"]);
-    this.cred.logEvent.subscribe(() => this.router.navigate(["/user"]));
   }
 
 }

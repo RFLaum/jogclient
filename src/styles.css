@@ -2,3 +2,19 @@
 a.link-app {
   cursor: pointer;
 }
+ul.info-list {
+ list-style-type: none;
+ margin: 1em;
+}
+ul.info-list > li {
+  border-width: 0px 1px 1px 1px;
+  border-style: solid;
+  border-color: black;
+  padding: 1em;
+}
+ul.info-list > li:first-of-type {
+  border-top-width: 1px;
+}
+ul.info-list > li dl {
+  margin-bottom: 0;
+}

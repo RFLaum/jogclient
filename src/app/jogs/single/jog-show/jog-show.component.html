@@ -1,5 +1,5 @@
 <dl class="dl-horizontal">
-  <dt>Date</dt><dd>{{ jog.date }}</dd>
+  <dt>Date</dt><dd>{{ jog.date | date:"longDate" }}</dd>
   <dt>Distance</dt><dd>{{ jog.distance }} mi.</dd>
   <dt>Time</dt><dd>{{ jog.pretty_time }}</dd>
   <dt>Speed</dt><dd>{{ jog.speed }} mph</dd>

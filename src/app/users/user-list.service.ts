@@ -1,5 +1,6 @@
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { CommService } from '../communication/comm.service';
 import { CredentialsService } from './credentials.service';
@@ -15,9 +16,15 @@ export class UserListService {
     return this.getUserWithID(this.cred.id) || new User(this.cred);
   }
 
-  constructor(private comm: CommService, private cred: CredentialsService) {
-    // cred.logChange.subscribe(val => {if (val) this.refreshList(cred.id)});
-    cred.logEvent.subscribe( () => this.refreshList(cred.id) );
+  constructor(private comm: CommService, private cred: CredentialsService,
+    private router: Router) {
+    cred.logEvent.subscribe( inOrOut => {
+      if (inOrOut) this.refreshList(cred.id);
+      else {
+        this.users = [];
+        this.selected = null;
+      }
+    });
   }
 
   refreshList(chosenID: number){
@@ -51,6 +58,21 @@ export class UserListService {
 
   showMany(): boolean {
     return this.cred.loggedIn && this.users.length > 1;
+  }
+
+  canViewJogs(): boolean {
+    if (!this.cred.loggedIn) return false;
+    if (this.selected) return this.reader.canViewJogs(this.selected);
+    return false;
+  }
+
+  maybeRedirect(){
+    let currentPath = this.router.url;
+    let destPath: string;
+    if (!this.cred.loggedIn) destPath = "/";
+    else if ( currentPath == "/" || !this.canViewJogs() ) destPath = "/user";
+    else return;
+    if (destPath != currentPath) this.router.navigate([destPath]);
   }
 
   @Output() selChange = new EventEmitter<User>();

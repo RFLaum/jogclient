@@ -9,6 +9,7 @@ import {CredentialsService} from '../users/credentials.service';
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private cred: CredentialsService){}
 
+  // set authorization headers so the site knows who's requesting it
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (!this.cred.loggedIn){
       return next.handle(req);

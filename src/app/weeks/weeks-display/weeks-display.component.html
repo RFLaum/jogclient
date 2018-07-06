@@ -1,3 +1,8 @@
-<p>
-  weeks-display works!
-</p>
+<app-pagination [numPages]="weeks.numPages" [(page)]="weeks.pageNum">
+</app-pagination>
+
+<ul class="info-list">
+  <li *ngFor="let week of weeks.weeks" class="info-list">
+    <app-show-week [week] = "week"></app-show-week>
+  </li>
+</ul>

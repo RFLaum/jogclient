@@ -1,3 +1,5 @@
+// validator; check if a given field holds a valid number
+
 import { Directive, Input } from '@angular/core';
 import { NG_VALIDATORS, AbstractControl, Validator } from '@angular/forms';
 
@@ -11,6 +13,6 @@ export class CheckNumberDirective implements Validator {
 
   validate(c: AbstractControl): {[key: string]: any} | null {
     let num = Number(c.value);
-    return (isNaN(num) || num <= 0) ? {"valid number": true} : null;
+    return (isNaN(num) || num <= 0) ? {"invalid number": true} : null;
   }
 }

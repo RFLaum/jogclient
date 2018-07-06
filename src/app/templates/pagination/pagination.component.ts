@@ -1,3 +1,5 @@
+//manage page navigation for multi-page lists
+
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({

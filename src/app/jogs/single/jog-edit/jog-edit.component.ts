@@ -1,9 +1,10 @@
+//jog edit form
+
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { CommService } from '../../../communication/comm.service';
-// import { CredentialsService } from '../../../users/credentials.service';
 import { JogListService } from '../../all/jog-list.service';
 import { UserListService } from '../../../users/user-list.service';
 import { RecJog } from '../../jog.model';
@@ -16,20 +17,23 @@ import { RecJog } from '../../jog.model';
 export class JogEditComponent implements OnInit {
   @Input() jog: RecJog;
   @Output() doneEditing = new EventEmitter();
-  // @Output() deleted = new EventEmitter();
 
+  // check if we're creating a new jog or editing an existing one
   get newJog(): boolean { return !this.jog; }
 
-  constructor(private comm: CommService, // private cred: CredentialsService,
-    private jogList: JogListService, private userList: UserListService) { }
+  constructor(private comm: CommService,
+    private jogList: JogListService,
+    private userList: UserListService) { }
 
   ngOnInit() {
   }
 
   onSubmit(form: NgForm){
     let val = form.value;
+    //remove empty fields from the data we're going to send
     for (let prop in val)
       val[prop] = val[prop] || undefined;
+
     let obs: Observable<RecJog>;
     const isNew = this.newJog;
     if (isNew){

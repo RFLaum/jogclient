@@ -28,8 +28,11 @@ export class UserEditComponent implements OnInit {
 
   private
 
+  // check whether this is a new user or whether we're editing an existing one
   get newUser(): boolean { return !this.user; }
 
+  // return empty string if this is a new user, or value from existing user if
+  // there is one
   maybeGetValue(name: string): any {
     return this.newUser ? "" : this.user[name];
   }
@@ -38,6 +41,7 @@ export class UserEditComponent implements OnInit {
     return !this.newUser && this.user.role > Role.user;
   }
 
+  //get roles we can assign to. No one can promote above their own role
   getRoles(): string[] {
     let answer: string[] = [];
     const highest = this.userList.reader.role;
@@ -47,9 +51,7 @@ export class UserEditComponent implements OnInit {
   }
 
   onSubmit(){
-    let val = this.form.value;
-    for (let prop in val)
-      val[prop] = val[prop] || undefined;
+    let val = this.formUtil.removeBlank(this.form);
     if (this.newUser){
       this.comm.post<RecUser>("users/", {user: val}).subscribe(
         resp => {
@@ -60,6 +62,7 @@ export class UserEditComponent implements OnInit {
       );
     } else {
       this.comm.patch<RecUser>(this.user, {user: val}).subscribe(resp => {
+        //if user edited themself, update credentials
         if (resp.id == this.cred.id) {
           if (val.username) this.cred.username = val.username;
           if (val.password) this.cred.password = val.password;
@@ -85,6 +88,4 @@ export class UserEditComponent implements OnInit {
       err => this.errorReceived(err)
     );
   }
-
-  log(x: any){console.log(x);}
 }

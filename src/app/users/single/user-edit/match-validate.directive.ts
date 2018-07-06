@@ -1,3 +1,5 @@
+//checks to make sure the password and confirm password fields match
+
 import { Directive, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { NG_VALIDATORS, AbstractControl, Validator, NgModel } from '@angular/forms';
 
@@ -18,6 +20,7 @@ export class MatchValidateDirective implements Validator, OnChanges {
     return null;
   }
 
+  // update errors when the other field changes as well as when this one does
   ngOnChanges(changes: SimpleChanges){
     if (this._onChange && "checkAgainst" in changes) this._onChange();
   }

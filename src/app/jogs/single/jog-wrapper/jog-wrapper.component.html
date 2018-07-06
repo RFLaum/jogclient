@@ -1,10 +1,8 @@
-<li>
-  <app-jog-show
-    *ngIf="!inEditMode"
-    [jog]="jog"
-    (click)="inEditMode=true"></app-jog-show>
-  <app-jog-edit
-    *ngIf="inEditMode"
-    [jog]="jog"
-    (doneEditing)="inEditMode=false"></app-jog-edit>
-</li>
+<app-jog-show
+  *ngIf="!inEditMode"
+  [jog]="jog"
+  (click)="inEditMode=true"></app-jog-show>
+<app-jog-edit
+  *ngIf="inEditMode"
+  [jog]="jog"
+  (doneEditing)="inEditMode=false"></app-jog-edit>

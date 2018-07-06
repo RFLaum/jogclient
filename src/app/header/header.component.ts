@@ -33,9 +33,11 @@ export class HeaderComponent implements OnInit {
     this.showRegForm = !this.showRegForm;
   }
 
+  // text to display for the login/logout link
   logText(): string {
     return this.cred.loggedIn ? "Log Out" : "Log In";
   }
+  // logs in or out when log link clicked
   logClick(){
     if (this.cred.loggedIn) this.cred.logOut();
     else this.toggleLogForm();
@@ -56,7 +58,9 @@ export class HeaderComponent implements OnInit {
     this.showLogForm = false;
   }
 
+  //check if we can see the viewed user's jog records
   checkCanView(): boolean {
-    return this.users.reader.canViewJogs(this.users.selected);
+    // return this.users.reader.canViewJogs(this.users.selected);
+    return this.users.canViewJogs();
   }
 }

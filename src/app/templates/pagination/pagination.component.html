@@ -2,7 +2,6 @@
   <a class="link-app" *ngIf="pageWrap > 1" (click)="adjustPage(-1)">&larr; Previous</a>
   Page
   <input
-    *ngIf = "numPages > 1"
     type = "number"
     min = "1"
     [max] = "numPages"

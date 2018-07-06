@@ -1,3 +1,6 @@
+// a toggleable required validator; can pass either true or false to set
+// whether it's turned on or off
+
 import { Directive, Input } from '@angular/core';
 import { NG_VALIDATORS, AbstractControl, Validator } from '@angular/forms';
 

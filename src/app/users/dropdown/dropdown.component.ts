@@ -1,3 +1,5 @@
+//dropdown to choose what user to view
+
 import { Component, OnInit } from '@angular/core';
 
 import { UserListService } from '../user-list.service';

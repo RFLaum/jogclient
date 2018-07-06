@@ -1,3 +1,5 @@
+// wrapper that may either show or edit a jog
+
 import { Component, OnInit, Input} from '@angular/core';
 
 import { RecJog } from '../../jog.model';

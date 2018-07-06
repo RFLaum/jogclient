@@ -7,10 +7,12 @@ import { User } from '../users/user.model';
 import { RecJog } from '../jogs/jog.model';
 import { CredentialsService } from '../users/credentials.service';
 
-type InnerDest = User|string|RecJog; //|CredentialsService
+// destinations; used to find the destination path for the url
+type InnerDest = User|string|RecJog;
 type Dest = InnerDest|InnerDest[];
 type MyParams = HttpParams | { [param: string]: string | string[]; };
 
+// handles communication
 @Injectable({
   providedIn: 'root'
 })
@@ -38,10 +40,11 @@ export class CommService {
 
   private
 
+// no need to make this static, since we'll only ever have one instance of
+// this class
   readonly domain: string = "http://localhost:3000/"
-  // readonly usersPath: string = this.domain + "users/";
-  // readonly jogsPath: string = this.domain + "jogs/";
 
+// finds the correct url
   makeUrl(val: Dest): string {
     const makeUrlInner = (x: any) => {
       if (x instanceof Array)

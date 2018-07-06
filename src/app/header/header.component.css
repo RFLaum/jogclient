@@ -1,6 +1,10 @@
 div.row {
   border-bottom: 2px solid blue;
   padding-left: 1em;
+  margin-bottom: 1em;
+}
+div.padding{
+  padding-left: 1em;
 }
 
 a {
