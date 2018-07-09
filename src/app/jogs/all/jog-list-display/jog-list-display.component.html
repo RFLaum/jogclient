@@ -1,10 +1,10 @@
 <app-date-filter></app-date-filter>
 <app-pagination
   [numPages]="jogsServ.numPages"
-  [(page)]="jogsServ.pageNum">
+  [(page)]="jogsServ.pageNum"
+  [needsUpdate] = "jogsServ.needsUpdate"
+  (refreshRequested) = "jogsServ.refresh()">
 </app-pagination>
 <ul class="info-list">
-  <li *ngFor="let jog of jogsServ.jogs">
-    <app-jog-wrapper [jog]="jog"></app-jog-wrapper>
-  </li>
+  <app-jog-wrapper *ngFor="let jog of jogsServ.jogs" [jog]="jog"></app-jog-wrapper>
 </ul>

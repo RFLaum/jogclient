@@ -8,4 +8,7 @@
     [(ngModel)] = "pageWrap" >
   of <strong>{{ numPages }} </strong>
   <a class="link-app" *ngIf="pageWrap < numPages" (click)="adjustPage(1)">Next &rarr;</a>
+  <a class="link-app refLink"
+    *ngIf="needsUpdate"
+    (click)="refreshRequested.emit()">Refresh</a>
 </nav>

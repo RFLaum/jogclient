@@ -48,14 +48,16 @@ export class JogListService {
     if (this.endDate) params["end_date"] = this.endDate;
 
     let countSuccess: number = 0;
+    const count = () => {
+      countSuccess++;
+      if (countSuccess == 2) this.needsUpdate = false;
+    };
     this.comm.get<number>([this.users.selected, "jogpages"], params).subscribe(
-      succ => {this.numPages = succ; countSuccess++;}
+      succ => { this.numPages = succ; count();}
     );
     this.comm.get<RecJog[]>([this.users.selected, "jogs"], params).subscribe(
-      succ => {this.jogs = succ; countSuccess++;}
+      succ => {this.jogs = succ; count();}
     );
-    if (countSuccess == 2)
-      this.needsUpdate = false;
   }
 
   maybeRefresh(){

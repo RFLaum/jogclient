@@ -10,7 +10,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class PaginationComponent implements OnInit {
   @Input() numPages: number;
   @Input() page: number;
+  @Input() needsUpdate: boolean = false;
   @Output() pageChange = new EventEmitter<number>();
+  @Output() refreshRequested = new EventEmitter();
 
   private get pageWrap(): number { return this.page; }
   private set pageWrap(newVal: number) {

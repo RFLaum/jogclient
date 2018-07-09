@@ -52,7 +52,7 @@ export class CommService {
                 .reduce((acc, curr) => acc + "/" + curr);
       if (x instanceof User)
         return "users/" + x.id;
-      if (x instanceof RecJog ) return "jogs/" + x.id;
+      if (x.pretty_time) return "users/" + x.user_id + "/jogs/" + x.id;
       return x;
     };
     return this.domain + makeUrlInner(val);
