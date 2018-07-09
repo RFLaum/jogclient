@@ -42,7 +42,7 @@ export class CommService {
 
 // no need to make this static, since we'll only ever have one instance of
 // this class
-  readonly domain: string = "http://localhost:3000/"
+  readonly domain: string = "http://jogging-server-rails.herokuapp.com"
 
 // finds the correct url
   makeUrl(val: Dest): string {
