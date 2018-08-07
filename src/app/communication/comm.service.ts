@@ -42,6 +42,7 @@ export class CommService {
 
 // no need to make this static, since we'll only ever have one instance of
 // this class
+// replace this with the server address
   readonly domain: string = "http://jogging-server-rails.herokuapp.com"
 
 // finds the correct url
